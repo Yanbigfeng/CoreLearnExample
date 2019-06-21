@@ -50,7 +50,6 @@ namespace CoreLearnExample
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             #region session
             //添加会话服务
             services.AddDistributedMemoryCache();
@@ -107,6 +106,16 @@ namespace CoreLearnExample
 
             services.AddDbContext<testContext>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("TestEntity")));
+            #endregion
+
+            #region 依赖注入的生命周期【内置】
+            services.AddTransient<ICycleTransient,CycleModel>();//暂时性
+            services.AddScoped<ICycleScoped, CycleModel>();//作用域
+            services.AddSingleton<ICycleSingleton, CycleModel>();//单例
+            services.AddSingleton<ICycleSingletonInstance>(new CycleModel(Guid.Empty));//单例，传参
+
+            // OperationService depends on each of the other Operation types.
+            services.AddTransient<CycleService, CycleService>();
             #endregion
 
 
