@@ -80,6 +80,7 @@ namespace CoreLearnExample
         {
             //属性注入
             builder.RegisterType<CycleModel>().As<ICycleTransient>().PropertiesAutowired();
+
             builder.RegisterType<DICycleController>().PropertiesAutowired();
 
         }
