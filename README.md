@@ -1,8 +1,6 @@
 # CoreLearnExample
 ASP.NET Core MVC学习示例
 
-
-
 ##基础知识
 
 ###静态文件和中间件的了解
@@ -11,13 +9,11 @@ ASP.NET Core MVC学习示例
 第二个实现效果就是在做的开启任意目录浏览，该功能效果类似ftp模式可以通过路径查看到下面的资源列表。
 
 ###Session扩展
-
 针对core的session进行扩展为对象级别，core中session默认只可以存字符串类型所有进行扩展。
 使用dll（Newtonsoft.Json）
 使用流进行扩展（MemoryStream）
 
 ###Lognet4集成
-
 这里把lognet4集成到coreMvc项目中，实现功能和配置。
 
 ###项目部署
