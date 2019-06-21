@@ -49,6 +49,11 @@ namespace CoreLearnExample.Controllers
 
         /*******************************************AutoFac框架替换默认注入*********************************************/
 
+
+        //使用第三方容器的高级输入属性注入
+        public ICycleTransient _testService { get; set; }
+
+
         public ActionResult AutoFacView()
         {
 
@@ -58,6 +63,10 @@ namespace CoreLearnExample.Controllers
             ViewBag.ScopedCycle = ScopedCycle.CycleId;
             ViewBag.SingletonCycle = SingletonCycle.CycleId;
             ViewBag.SingletonInstanceCycle = SingletonInstanceCycle.CycleId;
+
+            //属性注入测试
+            ViewBag.attribute=  _testService.CycleId;
+
             return View();
         }
     }

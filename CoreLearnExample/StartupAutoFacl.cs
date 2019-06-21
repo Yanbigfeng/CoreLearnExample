@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using CoreLearnExample.Models;
 using Microsoft.AspNetCore.Hosting;
+using CoreLearnExample.Controllers;
 
 namespace CoreLearnExample
 {
@@ -20,25 +21,25 @@ namespace CoreLearnExample
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             #region 添加mvc服务
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddControllersAsServices();
             #endregion
 
-            // 添加 Autofac
+
+            #region 添加 Autofac替换内置
             var containerBuilder = new ContainerBuilder();
-            //这里是单个注入模型我们可以直接使用内置的注入方式
-            // containerBuilder.RegisterModule<DefaultModule>();
 
             services.AddTransient<ICycleTransient, CycleModel>();//暂时性
             services.AddScoped<ICycleScoped, CycleModel>();//作用域
             services.AddSingleton<ICycleSingleton, CycleModel>();//单例
             services.AddSingleton<ICycleSingletonInstance>(new CycleModel(Guid.Empty));//单例，传参
-
-            // OperationService depends on each of the other Operation types.
             services.AddTransient<CycleService, CycleService>();
-
             containerBuilder.Populate(services);
+            //这里是单个注入模型我们可以直接使用内置的注入方式
+            containerBuilder.RegisterModule<DefaultModule>();
+
             var container = containerBuilder.Build();
-            return new AutofacServiceProvider(container);
+            return new AutofacServiceProvider(container); 
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,12 +78,9 @@ namespace CoreLearnExample
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CycleModel>().As<ICycleTransient>();
-            builder.RegisterType<CycleModel>().As<ICycleScoped>();
-            builder.RegisterType<CycleModel>().As<ICycleSingleton>();
-            builder.RegisterType<CycleModel>().As<ICycleSingletonInstance>().UsingConstructor(typeof(Guid));
-
-             builder.RegisterType<CycleService>();
+            //属性注入
+            builder.RegisterType<CycleModel>().As<ICycleTransient>().PropertiesAutowired();
+            builder.RegisterType<DICycleController>().PropertiesAutowired();
 
         }
     }
