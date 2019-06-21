@@ -1,0 +1,35 @@
+﻿
+@Model UserViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>EF首先展示</h1>
+<p>
+    <h3>这里显示信息</h3>
+    <div> <span>appValue字符串值:</span>@ViewBag.appValue </div>
+    <div> <span> peserModel类:</span> <span>@ViewBag.peserModel.age</span> </div>
+    <div>
+        <span> AppSetModel类:</span>
+        <span>name</span>
+        <span>@ViewBag.appSetModel.name</span>
+        <span>PeserModel</span>
+        <span>@ViewBag.appSetModel.peserModel.age</span>
+
+        <span>arrayVlue</span>
+
+    </div>
+    <div>
+        <span> s数组:</span>
+        <span> key:</span>
+        <span> @ViewBag.setArrayModel.key</span>
+        @{
+            foreach (var str in ViewBag.setArrayModel.arrayVlue)
+            {
+                <div>@str</div>
+            }
+        }
+    </div>
+</p>
+
