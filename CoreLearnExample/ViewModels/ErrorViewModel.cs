@@ -1,6 +1,6 @@
 using System;
 
-namespace CoreLearnExample.Models
+namespace CoreLearnExample.ViewModels
 {
     public class ErrorViewModel
     {

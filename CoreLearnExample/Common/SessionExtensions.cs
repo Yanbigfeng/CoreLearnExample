@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
-namespace CoreLearnExample.Models
+namespace CoreLearnExample.Common
 {
     public static class SessionExtensions
     {

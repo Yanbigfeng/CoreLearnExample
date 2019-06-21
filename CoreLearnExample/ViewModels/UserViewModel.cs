@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreLearnExample.Models
+namespace CoreLearnExample.ViewModels
 {
     //用户表
     [Serializable]

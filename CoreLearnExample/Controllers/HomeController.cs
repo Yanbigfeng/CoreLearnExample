@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CoreLearnExample.Models;
+using CoreLearnExample.ViewModels;
 
 namespace CoreLearnExample.Controllers
 {
+    //主页看那个示例进行页面跳转
     public class HomeController : Controller
     {
         public IActionResult Index()

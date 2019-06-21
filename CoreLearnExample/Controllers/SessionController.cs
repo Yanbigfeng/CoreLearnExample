@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CoreLearnExample.Models;
+using CoreLearnExample.ViewModels;
+using CoreLearnExample.Common;
 
 namespace CoreLearnExample.Controllers
 {

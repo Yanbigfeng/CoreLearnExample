@@ -65,11 +65,13 @@ namespace CoreLearnExample
             });
             #endregion
 
+            #region 添加mvc服务
             services.AddMvc(options =>
-            {
-                options.Filters.Add<HttpGlobalExceptionFilter>(); //加入全局异常类
+              {
+                  options.Filters.Add<HttpGlobalExceptionFilter>(); //加入全局异常类
 
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+              }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            #endregion
 
 
             #region appsettings文件的读取
@@ -113,6 +115,7 @@ namespace CoreLearnExample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            #region 环境检测
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -123,9 +126,11 @@ namespace CoreLearnExample
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            #endregion
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection();//重定向
 
+            #region 静态文件管道中间件
             app.UseStaticFiles(); //静态文件服务启用
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -133,7 +138,9 @@ namespace CoreLearnExample
                 Path.Combine(Directory.GetCurrentDirectory(), "upload")), //文件的实际路径位置
                 RequestPath = "/StaticFiles",//这里是设置访问的时候路径名称可以任意定义
             });
+            #endregion
 
+            #region 启用目录浏览
             //启用目录浏览
             app.UseDirectoryBrowser(new DirectoryBrowserOptions
             {
@@ -141,10 +148,13 @@ namespace CoreLearnExample
                 Path.Combine(Directory.GetCurrentDirectory(), "upload", "img")),
                 RequestPath = "/StaticFiles/img"
             });
+            #endregion
 
             app.UseCookiePolicy();
-            //添加session
-            app.UseSession();
+            app.UseSession();  //添加session
+
+
+            #region 路由
             //路由
             app.UseMvc(routes =>
             {
@@ -152,6 +162,7 @@ namespace CoreLearnExample
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            #endregion
         }
     }
 }
