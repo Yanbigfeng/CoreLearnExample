@@ -1,0 +1,70 @@
+﻿
+@Model UserViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>登录页面</h1>
+<p>
+    <h3>这里显示信息</h3>
+    <div> @ViewBag.userName </div>
+</p>
+
+
+<div>
+    <h3>这里设置信息</h3>
+    <form asp-action="SetSession" target="iframe_display" onsubmit="setTimeout(function () { window.location.reload();  },0)">
+
+        <div>
+            <label>姓名：</label>
+            <input name="name" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+    <iframe id="iframe_display" name="iframe_display" style="display: none;"></iframe>
+
+
+    <form asp-action="ClearSession" target="_blank" onsubmit="setTimeout(function () { },0)">
+
+        <div class="form-group">
+            <input id="j_clear" type="submit" value="清除登录账号" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <script>
+
+        var xmlHttp;
+        document.getElementById('j_clear').addEventListener("click", function () {
+             xmlHttp = new XMLHttpRequest();
+
+            if (xmlHttp == null) {
+                alert('您的浏览器不支持AJAX！');
+                return;
+            }
+            var url = "Login/ClearSession";
+            xmlHttp.open("post", url, true);
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttp.onreadystatechange = favorOK;//发送事件后，收到信息了调用函数
+            xmlHttp.send();
+        })
+
+
+        function favorOK() {
+
+            if (xmlHttp.readyState == 1 || xmlHttp.readyState == 2 || xmlHttp.readyState == 3) {
+                // 本地提示：加载中
+            }
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                var d = xmlHttp.responseText;
+                // 处理返回结果
+                console.log(d)
+            }
+        }
+
+    </script>
+
+</div>

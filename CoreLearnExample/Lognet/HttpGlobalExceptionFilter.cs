@@ -10,7 +10,7 @@ namespace CoreLearnExample.Lognet
     //全局异常类
     public class HttpGlobalExceptionFilter: IExceptionFilter
     {
-        private ILog log = LogManager.GetLogger(Startup.repository.Name, typeof(HttpGlobalExceptionFilter));
+        private ILog log = LogManager.GetLogger(StartupMvcBase.repository.Name, typeof(HttpGlobalExceptionFilter));
         public void OnException(ExceptionContext context)
         {
             log.Error(context.Exception.ToString());

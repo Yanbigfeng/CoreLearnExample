@@ -8,7 +8,7 @@ namespace CoreLearnExample.Lognet
 {
     public class LogHelper
     {
-        private static ILog myLog = LogManager.GetLogger(Startup.repository.Name, typeof(LogHelper));
+        private static ILog myLog = LogManager.GetLogger(StartupMvcBase.repository.Name, typeof(LogHelper));
 
         /// <summary>
         /// 记录日志信息

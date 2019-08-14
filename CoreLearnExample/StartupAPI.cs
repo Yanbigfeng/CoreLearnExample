@@ -3,16 +3,21 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using System.Linq;
+using WebApiContrib.Core.Formatter.Jsonp;
+using CoreLearnExample.Common;
+using CoreLearnExample.Filter;
 
 namespace CoreLearnExample
 {
-    public class Startup
+    public class StartupAPI
     {
+
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        public StartupAPI(IConfiguration configuration)
         {
             Configuration = configuration;
 
@@ -30,8 +35,17 @@ namespace CoreLearnExample
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            //services.AddScoped<JsonpResultFilter>();
+
             #region 添加mvc服务
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddMvc(options =>
+            {
+                // options.InputFormatters.Insert(0, new JsonpMediaTypeFormatter(outputFormatter, null));
+                // options.OutputFormatters.Insert(0, new JsonpFormatter(options.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault(), null));
+                // options.AddJsonpOutputFormatter(); 
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             #endregion
 
         }
@@ -52,9 +66,16 @@ namespace CoreLearnExample
             }
             #endregion
 
+            app.UseStaticFiles(); //静态文件服务启用
+
             #region 路由
             //路由
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
             #endregion
         }
     }
