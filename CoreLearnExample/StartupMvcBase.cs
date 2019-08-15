@@ -53,14 +53,14 @@ namespace CoreLearnExample
 
 
             #region 使用redis保存session
-            var redisConn = Configuration["Redis:Connection"];
-            var redisInstanceName = Configuration["Redis:InstanceName"];
-            //使用redis作为分布式缓存
-            services.AddDistributedRedisCache(options =>
-            {
-                options.Configuration = redisConn;
-                options.InstanceName = redisInstanceName;
-            });
+            //var redisConn = Configuration["Redis:Connection"];
+            //var redisInstanceName = Configuration["Redis:InstanceName"];
+            ////使用redis作为分布式缓存
+            //services.AddDistributedRedisCache(options =>
+            //{
+            //    options.Configuration = redisConn;
+            //    options.InstanceName = redisInstanceName;
+            //});
             #endregion
 
             #region session

@@ -100,9 +100,7 @@ namespace CoreLearnExample
             app.UseResponseCaching();//缓存
 
             //中间件实现
-
-
-            CacheMiddleware.CacheMiddlewareMethod(app);
+           // CacheMiddleware.CacheMiddlewareMethod(app);
 
             app.UseCookiePolicy();//启用cookie策略
             app.UseSession();  //添加session

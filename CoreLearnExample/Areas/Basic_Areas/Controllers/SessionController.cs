@@ -7,6 +7,7 @@ using CoreLearnExample.ViewModels;
 using CoreLearnExample.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
+using CoreLearnExample.Filter;
 
 namespace CoreLearnExample.Areas.Basic_Areas.Controllers
 {
@@ -67,7 +68,7 @@ namespace CoreLearnExample.Areas.Basic_Areas.Controllers
         //[ResponseCache(Duration = 5)]
          //[ResponseCache(VaryByHeader = "User-Agent", Duration = 30)]
         //[ResponseCache(CacheProfileName = "Default30")]
-
+        [MyResourceFilter]
         public IActionResult CacheView()
         {
             ViewBag.time = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
