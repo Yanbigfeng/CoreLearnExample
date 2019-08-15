@@ -20,6 +20,6 @@ namespace CoreLearnExample
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<StartupFilter>();
+                .UseStartup<StartupMvcBase>();
     }
 }

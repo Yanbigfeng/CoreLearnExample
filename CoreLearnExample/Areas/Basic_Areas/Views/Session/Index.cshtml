@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/js/jquery-1.8.2.min.js"></script>
+
+    <script>
+
+        window.onload = function () {
+            $("#j_sava").on("click", function () {
+
+                var name = $("#j_name").val();
+
+                var age = $("#j_age").val();
+                $.ajax({
+                    url: "/Basic_Areas/Session/Set?name="+name+"&age="+age,
+                    type:"get",
+                    success: function (data) {
+                        console.log("请求成功")
+                        window.location.reload();
+
+                    }
+
+                })
+            })
+
+            $("#j_savaRedis").on("click", function () {
+
+                var name = $("#j_name").val();
+
+                var age = $("#j_age").val();
+                $.ajax({
+                    url: "/Basic_Areas/Session/RedisSet?name=" + name + "&age=" + age,
+                    type: "get",
+                    success: function (data) {
+                        console.log("请求成功Redis")
+                        window.location.reload();
+
+                    }
+
+                })
+            })
+        }
+       
+    </script>
+</head>
+<body>
+
+    @Model UserViewModel
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Session首先展示</h1>
+    <p>
+        <h3>这里显示信息</h3>
+        <div> @Model.name </div>
+        <div> @Model.age </div>
+    </p>
+
+
+    <div>
+        <h3>这里设置信息</h3>
+
+        <div>
+            <label>姓名：</label>
+            <input id="j_name" name="name" />
+        </div>
+        <div>
+            <label>年龄：</label>
+            <input id="j_age" name="age" />
+        </div>
+
+
+
+        <div class="form-group">
+            <input id="j_sava" type="submit" value="Save" class="btn btn-primary" />
+            <input id="j_savaRedis" type="submit" value="SaveRedis" class="btn btn-primary" />
+
+        </div>
+    </div>
+    <p>
+        <h3>当前时间：@ViewBag.nowTime</h3>
+    </p>
+</body>
+</html>

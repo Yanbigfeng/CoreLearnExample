@@ -27,6 +27,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
     <PackageReference Include="WebApiContrib.Core.Formatter.Jsonp" Version="2.1.0" />
   </ItemGroup>
@@ -46,6 +47,17 @@
     <Content Update="Log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Basic_Areas\Data\" />
+    <Folder Include="Areas\Basic_Areas\Models\" />
+    <Folder Include="Areas\ComUser_Areas\Data\" />
+    <Folder Include="Areas\ComUser_Areas\Models\" />
+    <Folder Include="Areas\Test\Data\" />
+    <Folder Include="Areas\Test\Models\" />
+    <Folder Include="EFFromData\" />
   </ItemGroup>
 
 

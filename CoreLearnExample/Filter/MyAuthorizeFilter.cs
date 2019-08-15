@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
@@ -12,20 +13,25 @@ namespace CoreLearnExample.Filter
     /// <summary>
     /// 授权过滤器(登录验证)
     /// </summary>
-    public class MyAuthorizeFilter :IAuthorizationFilter
+    public class MyAuthorizeFilter :Attribute, IAuthorizationFilter
     {
 
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private ISession _session => _httpContextAccessor.HttpContext.Session;
 
+        public MyAuthorizeFilter()
+        {
+        }
         public MyAuthorizeFilter(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void OnAuthorization(AuthorizationFilterContext context) {
+        public void OnAuthorization(AuthorizationFilterContext context)
+        {
 
             //判断是否存在skip
+            var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
+            var fil = context.Filters;
             if (IsHaveAllow(context.Filters))
             {
                 return;
@@ -70,6 +76,7 @@ namespace CoreLearnExample.Filter
         #endregion
 
         #region 判断是否有Skip
+
         /// <summary>
         /// 判断是否有Skip
         /// </summary>
@@ -79,7 +86,7 @@ namespace CoreLearnExample.Filter
         {
             for (int i = 0; i < filers.Count; i++)
             {
-                if (filers[i] is IAllowAnonymousFilter)
+                if (filers[i] is SkipAttribute)
                 {
                     return true;
                 }
@@ -91,7 +98,7 @@ namespace CoreLearnExample.Filter
 
 
         #region 判断是否登录
-        private  bool IsLogin()
+        private bool IsLogin()
         {
             //验证登录userName是否为空，如果为空就算作验证失败返回false
             if (!string.IsNullOrEmpty(_httpContextAccessor.HttpContext.Session.GetString("userName")))

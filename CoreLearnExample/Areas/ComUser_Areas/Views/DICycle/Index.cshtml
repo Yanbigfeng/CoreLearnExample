@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DICycle示例</title>
+</head>
+<body>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>生命周期数据展示</h1>
+
+
+    <ul>
+        <li>
+            <span>暂时性：</span>
+            @ViewBag.TransientCycle
+        </li>
+
+        <li>
+            <span>作用域：</span>
+            @ViewBag.ScopedCycle
+        </li>
+
+        <li>
+            <span>单例：</span>
+            @ViewBag.SingletonCycle
+        </li>
+        <li>
+            <span>单例2：</span>
+            @ViewBag.SingletonInstanceCycle
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            <span>暂时性：</span>
+            @ViewBag.CycleService.TransientCycle.CycleId
+        </li>
+
+        <li>
+            <span>作用域：</span>
+            @ViewBag.CycleService.ScopedCycle.CycleId
+        </li>
+
+        <li>
+            <span>单例：</span>
+            @ViewBag.CycleService.SingletonCycle.CycleId
+        </li>
+        <li>
+            <span>单例2：</span>
+            @ViewBag.CycleService.SingletonInstanceCycle.CycleId
+        </li>
+    </ul>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+</body>
+</html>

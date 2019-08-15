@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EF示例</title>
+</head>
+<body>
+    @Model UserViewModel
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>EF首先展示</h1>
+    <p>
+        <h3>这里显示信息</h3>
+        <div> </div>
+        <div>  </div>
+
+        @{
+            foreach (var item in Model)
+            {
+                <div> @item.Id</div>
+                <div> @item.Introduce</div>
+                <div>@item.Describe  </div>
+                <div>------------------ </div>
+            }
+
+
+        }
+    </p>
+
+
+    <div>
+        <h3>这里设置信息</h3>
+        <form action="Add" target="iframe_display" onsubmit="setTimeout(function () { window.location.reload();  },1000)">
+            <div>
+                <label>内容：</label>
+                <input name="Introduce" />
+            </div>
+            <div>
+                <label>描述：</label>
+                <input name="Describe" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="增加" class="btn btn-primary" />
+            </div>
+        </form>
+        <form action="Edit" target="iframe_display" onsubmit="setTimeout(function () { window.location.reload(); },1000)">
+            <div>
+                <label>id：</label>
+                <input name="id" />
+            </div>
+            <div>
+                <label>内容：</label>
+                <input name="Introduce" />
+            </div>
+            <div>
+                <label>描述：</label>
+                <input name="Describe" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="修改" class="btn btn-primary" />
+            </div>
+        </form>
+        <form  action="Del" target="iframe_display" onsubmit="setTimeout(function () { window.location.reload(); },1000)">
+            <div>
+                <label>id：</label>
+                <input name="id" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="删除" class="btn btn-primary" />
+            </div>
+        </form>
+        <iframe id="iframe_display" name="iframe_display" style="display: none;"></iframe>
+    </div>
+
+</body>
+</html>

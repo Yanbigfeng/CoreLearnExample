@@ -12,16 +12,17 @@ namespace CoreLearnExample.Controllers
     /// <summary>
     /// 登录验证控制器（授权的使用）
     /// </summary>
-
+    [Skip]
     public class LoginController : Controller
     {
+
 
         /// <summary>
         /// 登录方法
         /// </summary>
         /// <returns></returns>
         /// 
-        [Skip]
+        [MyAuthorizeFilter]
         public IActionResult Login()
         {
             string userName = HttpContext.Session.GetString("userName");
@@ -33,7 +34,7 @@ namespace CoreLearnExample.Controllers
             return View();
         }
 
-        [Skip]
+    
         public IActionResult LogOut()
         {
 
@@ -42,7 +43,7 @@ namespace CoreLearnExample.Controllers
 
         /******************************************缓存********************************************/
 
-        [Skip]
+
         public void SetSession(String name)
         {
             HttpContext.Session.SetString("userName", name);
