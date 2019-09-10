@@ -49,9 +49,11 @@ namespace CoreLearnExample.Controllers
             HttpContext.Session.SetString("userName", name);
         }
 
-        public void ClearSession()
+        public IActionResult ClearSession()
         {
             HttpContext.Session.Remove("userName");
+
+            return Content("成功");
         }
     }
 }

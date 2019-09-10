@@ -14,36 +14,133 @@ namespace CoreLearnExample.Filter
     public class MyResourceFilter : Attribute, IResourceFilter
     {
 
-     static   DomePooledObject demoPolicy = new DomePooledObject();
-      static  DefaultObjectPool<Dome> defaultPoolWithDemoPolicy = new DefaultObjectPool<Dome>(demoPolicy, 1);
+        static DomePooledObject demoPolicy = new DomePooledObject();
+        static DefaultObjectPool<Dome> defaultPoolWithDemoPolicy = new DefaultObjectPool<Dome>(demoPolicy, 3);
+
+        static List<DefaultObjectPool<Dome>> defaultObjectsList = new List<DefaultObjectPool<Dome>>();
         public void OnResourceExecuting(ResourceExecutingContext context)
         {
-            var Result2 = defaultPoolWithDemoPolicy.Get();
-            //获取响应体的引用
 
-            //这里设置文件的缓存时间值
-            var hasExpire = int.TryParse("10", out var expire);
-            if (hasExpire && expire > 0)
+
+            #region list方案未通过
+            ///////////////////list方案--未通过
+            //var name = context.RouteData.Values["action"].ToString();
+            //var c = defaultObjectsList.Where(u => u.Get().id == name).FirstOrDefault();
+            //DefaultObjectPool<Dome> resulCabak = null;
+            //foreach (var item in defaultObjectsList)
+            //{
+            //    var d = item;
+            //    var namec = item.Get().id;
+            //    if (item.Get().id == name)
+            //    {
+            //        resulCabak = item;
+            //    }
+            //}
+            //if (resulCabak != null)
+            //{
+            //    var cResult = resulCabak.Get();
+            //    context.Result = cResult.view;
+            //    c.Return(cResult);
+            //} 
+            #endregion
+
+            #region 单独实现-通过
+
+            ////////////////////////////////单独实现-通过
+
+            //单个页面测试
+            //var Result = defaultPoolWithDemoPolicy.Get();
+            //if (Result.id == context.RouteData.Values["action"].ToString())
+            //{
+            //    context.Result = Result.view;
+            //    defaultPoolWithDemoPolicy.Return(Result);
+            //}
+
+            #endregion
+
+            /////////////////////////////////继续扩展完善
+           
+            Dome Result = null;
+            for (int i = 0; i < 3; i++)
             {
+                Result = defaultPoolWithDemoPolicy.Get();
+                if (Result!=null)
+                {
+                    if (Result.id == context.RouteData.Values["action"].ToString())
+                    {
+                        context.Result = Result.view;
+                        defaultPoolWithDemoPolicy.Return(Result);
+                        break;
+                    }
+                    else
+                    {
+                        //defaultPoolWithDemoPolicy.Return(Result);
+                    }
+                }
+               
 
             }
-            if (Result2.id != "1")
-            {
-                context.Result = Result2.view;
-                defaultPoolWithDemoPolicy.Return(Result2);
-            }
+
 
         }
 
         public void OnResourceExecuted(ResourceExecutedContext context)
         {
+
+            #region list方案-未通过
+            ///////////////////list方案--未通过
+            //DomePooledObject demoPolicy2 = new DomePooledObject();
+            //DefaultObjectPool<Dome> defaultPoolWithDemoPolicy2 = new DefaultObjectPool<Dome>(demoPolicy2, 1);
+            //var Result = context.Result as ViewResult;
+            ////获取响应体的引用
+
+            //Dome domec = defaultPoolWithDemoPolicy2.Get();
+            //Dome dome = new Dome();
+            //dome.id = context.RouteData.Values["action"].ToString();
+            //dome.nowTime = DateTime.Now.ToString();
+            //dome.view = Result;
+
+
+            //defaultPoolWithDemoPolicy2.Return(dome);
+            //defaultObjectsList.Add(defaultPoolWithDemoPolicy2); 
+            #endregion
+
+
+            #region 单页面实现--通过
+            ////////////////////////////////单独实现-通过
+            //var Result = context.Result as ViewResult;
+            ////获取响应体的引用
+            //Dome dome = new Dome();
+            //dome.id = context.RouteData.Values["action"].ToString();
+            //dome.nowTime = DateTime.Now.ToString();
+            //dome.view = Result;
+            //defaultPoolWithDemoPolicy.Return(dome); 
+            #endregion
+
+            /////////////////////////////////继续扩展完善
+            //单独实现模型
             var Result = context.Result as ViewResult;
             //获取响应体的引用
-            Dome dome = new Dome();
-            dome.id = "2";
-            dome.nowTime = DateTime.Now.ToString();
-            dome.view = Result;
-            defaultPoolWithDemoPolicy.Return(dome);
+            //Dome dome =null;
+            for (int i = 0; i < 3; i++)
+            {
+                Dome dome = defaultPoolWithDemoPolicy.Get();
+                if (dome == null)
+                {
+                    dome = new Dome();
+                    dome.id = context.RouteData.Values["action"].ToString();
+                    dome.nowTime = DateTime.Now.ToString();
+                    dome.view = Result;
+                    defaultPoolWithDemoPolicy.Return(dome);
+                    break;
+                }
+                else {
+
+                }
+
+
+            }
+            
         }
     }
 
@@ -53,17 +150,13 @@ namespace CoreLearnExample.Filter
     public class DomePooledObject : IPooledObjectPolicy<Dome>
     {
 
-        ObjectResult _result = new ObjectResult(1);
+
         //public DomePooledObject(ObjectResult result) {
         //    _result = result;
         //}
         public Dome Create()
         {
-            return new Dome()
-            {
-                id = "1",
-                nowTime = DateTime.Now.ToString()
-            };
+            return null;
         }
 
         public bool Return(Dome obj)

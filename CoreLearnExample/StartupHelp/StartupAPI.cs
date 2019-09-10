@@ -36,6 +36,11 @@ namespace CoreLearnExample
             });
 
 
+            //配置cors
+            //services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin()));
+            services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "http://127.0.0.1:8848" })));
+
+
             //services.AddScoped<JsonpResultFilter>();
 
             #region 添加mvc服务
@@ -68,6 +73,8 @@ namespace CoreLearnExample
 
             app.UseStaticFiles(); //静态文件服务启用
 
+
+            app.UseCors("cors");//添加cors
             #region 路由
             //路由
             app.UseMvc(routes =>

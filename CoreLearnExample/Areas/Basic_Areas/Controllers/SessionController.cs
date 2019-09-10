@@ -75,5 +75,17 @@ namespace CoreLearnExample.Areas.Basic_Areas.Controllers
             return View();
         }
         #endregion
+
+        #region 缓存页面
+        //[ResponseCache(Duration = 5)]
+        //[ResponseCache(VaryByHeader = "User-Agent", Duration = 30)]
+        //[ResponseCache(CacheProfileName = "Default30")]
+        [MyResourceFilter]
+        public IActionResult CacheView2()
+        {
+            ViewBag.time = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            return View();
+        }
+        #endregion
     }
 }

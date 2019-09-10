@@ -130,8 +130,14 @@ namespace CoreLearnExample
             //var connection = @"Server=YBF;Database=test;Trusted_Connection=True;";
             //services.AddDbContext<TestContext>(options => options.UseSqlServer(connection));
 
-            services.AddDbContext<testContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("TestEntity")));
+
+            //暂时性的
+            //services.AddDbContext<testContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("TestEntity")), ServiceLifetime.Transient);
+            //全局单例
+            services.AddDbContext<testContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("TestEntity")),ServiceLifetime.Singleton);
+            //请求内单例
+            //services.AddDbContext<testContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("TestEntity")));
+
             #endregion
 
             #region 依赖注入的生命周期【内置】
