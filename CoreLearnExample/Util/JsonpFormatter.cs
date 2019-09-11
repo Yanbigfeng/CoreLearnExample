@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApiContrib.Core.Formatter.Jsonp;
 
-namespace CoreLearnExample.Common
+namespace CoreLearnExample.Util
 {
     public class JsonpFormatter: TextOutputFormatter
     {

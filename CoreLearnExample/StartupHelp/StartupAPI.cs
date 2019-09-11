@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using WebApiContrib.Core.Formatter.Jsonp;
-using CoreLearnExample.Common;
+using CoreLearnExample.Util;
 using CoreLearnExample.Filter;
 
 namespace CoreLearnExample

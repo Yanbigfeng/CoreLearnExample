@@ -15,6 +15,7 @@ using CoreLearnExample.EData;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using WebApiContrib.Core.Formatter.Jsonp;
+using CoreLearnExample.Util;
 
 namespace CoreLearnExample
 {
@@ -150,7 +151,12 @@ namespace CoreLearnExample
             services.AddTransient<CycleService, CycleService>();
             #endregion
 
+            #region 注册HTTP请求
+            services.AddHttpClient();
 
+            services.AddHttpClient<HttpRequestUtil>();//类型化客户端模式先创建使用类在注入
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,7 +12,7 @@ using System.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace CoreLearnExample.Common
+namespace CoreLearnExample.Util
 {
     /// <summary>
     /// 缓存中间件

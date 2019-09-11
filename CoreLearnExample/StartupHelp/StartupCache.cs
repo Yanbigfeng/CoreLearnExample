@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using CoreLearnExample.Common;
+using CoreLearnExample.Util;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;

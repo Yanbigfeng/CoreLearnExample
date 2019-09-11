@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CoreLearnExample.Common;
+using CoreLearnExample.Util;
 using CoreLearnExample.Filter;
 using System.IO;
 using Microsoft.AspNetCore.Http;

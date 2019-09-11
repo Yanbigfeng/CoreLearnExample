@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CoreLearnExample.ViewModels;
-using CoreLearnExample.Common;
+using CoreLearnExample.Util;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using CoreLearnExample.Filter;
