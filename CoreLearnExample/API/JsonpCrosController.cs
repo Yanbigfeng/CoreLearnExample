@@ -8,6 +8,7 @@ using CoreLearnExample.Filter;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Collections;
+using Microsoft.Extensions.Caching.Memory;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -117,5 +118,44 @@ namespace CoreLearnExample.API
 
             }
         }
+
+
+        [JsonpResultFilter]
+        [HttpGet("getNub")]
+        public List<string> GetNnb([FromServices] IMemoryCache _memoryCache)
+        {
+
+            //随机产生4位数字
+            var list = new List<string>();
+            Random random = new Random();
+            for (int i = 0; i < 4; i++) {
+                int nub = random.Next(0,9);
+                list.Add(nub.ToString());
+            }
+            var token = Guid.NewGuid().ToString();
+            var vCode = string.Join("", list);
+            list.Add(token);
+            var cacheKey = string.Format("vcode_cache_{0}", token);
+            _memoryCache.Set(cacheKey, vCode.ToString(), new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(1)));
+            CookieOptions options = new CookieOptions();
+            return list;
+
+        }
+
+        [HttpGet("getNubV")]
+        [JsonpResultFilter]
+        public bool GetNnbV([FromServices] IMemoryCache _memoryCache,[FromQuery]string code,[FromQuery]string token)
+        {
+
+            var cacheKey = string.Format("vcode_cache_{0}", token.ToString());
+            var vCode = "";
+            if (!_memoryCache.TryGetValue(cacheKey, out vCode)) return false;
+            if (vCode.ToLower() != code.ToLower()) return false;
+            _memoryCache.Remove(cacheKey);
+            return true;
+
+        }
+
     }
 }
