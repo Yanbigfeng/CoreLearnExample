@@ -35,13 +35,15 @@ namespace CoreLearnExample
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //添加缓存
+            services.AddMemoryCache();
 
             //配置cors
             //services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin()));
             services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "http://127.0.0.1:8848" })));
 
 
-            //services.AddScoped<JsonpResultFilter>();
+            services.AddScoped<JsonpResultFilter>();
 
             #region 添加mvc服务
 
